@@ -1,56 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Text Transformation</title>
-<script>
-  function transformText() {
-    // Get the input text
-    var inputText = document.getElementById("inputText").value;
-    
-    // Convert the text to lowercase
-    var lowercaseText = inputText.toLowerCase();
-    
-    // Replace spaces with dashes
-    var transformedText = lowercaseText.replace(/\s+/g, "-");
-    
-    // Display the transformed text
-    document.getElementById("outputText").textContent = transformedText;
-  }
-  
-  function copyText() {
-    // Get the content of the output text
-    var outputTextContent = document.getElementById("outputText").textContent;
-    
-    // Create a temporary textarea element to copy the text
-    var tempTextarea = document.createElement("textarea");
-    tempTextarea.value = outputTextContent;
-    
-    // Append the textarea to the body
-    document.body.appendChild(tempTextarea);
-    
-    // Select the text within the textarea
-    tempTextarea.select();
-    tempTextarea.setSelectionRange(0, 99999); /* For mobile devices */
-    
-    // Copy the selected text
-    document.execCommand("copy");
-    
-    // Remove the temporary textarea
-    document.body.removeChild(tempTextarea);
-    
-    // Display the copied text in the span
-    document.querySelector("h1 span").textContent = outputTextContent;
-    
-    // Provide feedback that the text has been copied
-  }
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Varela Round', sans-serif;
+}
+
+.hero {
+  width: 100%;
+  height: 100vh;
+  background: #f0f3ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#searchBox {
+  border-radius: 55px;
+  padding: 30px;
+  background: #f0f3ff;
+  display: flex;
+  align-items: center;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+}
+
+#googleIcon {
+  width: 50px;
+  cursor: pointer;
+}
+
+.fa-microphone {
+  transition: 0.5s;
+  transition-delay: 0.5s;
+}
+
+input {
+  font-size: 20px;
+  width: 0px;
+  border: 0;
+  background: transparent;
+  outline: none;
+  transition: 2s;
+}
+
+.active input {
+  width: 500px;
+  padding: 12px 20px;
+}
+
+.active .mic-icon {
+  width: 30px;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.output-container {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #007bff;
+}
+
+    </style>
 </head>
 <body>
-  <p id="outputText"></p>
-  <input type="text" id="inputText" placeholder="convert to slug here" oninput="transformText()"><br><br>
-  <button onclick="copyText()">Copy</button>
-  <h1>Copied: <span></span></h1>
+    <div class="hero">
+      <div class="output-container">
+        <p id="outputText"></p>
+      </div>
+      <div id="searchBox">
+        <i class="fab fa-google fa-3x" ></i>
+        <input type="text" id="inputText" placeholder="Enter text to convert to URL slug" oninput="transformText()"/>
+        <i class="fas fa-search fa-3x " id="googleIcon"></i>
+      </div>
+      <button class="button" onclick="copySlug()">Copy</button>
+      <span id="show"></span>
+    </div>
+    
+
+    <script>
+
+const searchBox = document.getElementById('searchBox'),
+googleIcon = document.getElementById('googleIcon');
+
+googleIcon.onclick = function () {
+  searchBox.classList.toggle('active');
+};
+
+
+function transformText() {
+    var inputText = document.getElementById("inputText").value;
+    
+    var slug = inputText.toLowerCase();
+    
+    slug = slug.replace(/([^\w\s]|_)+/g, '-');
+    slug = slug.replace(/(\w)\s+/g, '$1-');
+    slug = slug.replace(/\s+/g, '-');
+    slug = slug.replace(/-+/g, '-');
+    slug = slug.replace(/^-+/, '').replace(/-+$/, '');
+    
+    document.getElementById("outputText").textContent = slug;
+  }
+  
+  function copySlug() {
+    var slug = document.getElementById("outputText").textContent;
+    navigator.clipboard.writeText(slug);
+    document.getElementById('show').innerHTML = '"' + slug + '" copied to clipboard';
+  }
+    </script>
+  </body>
 </body>
 </html>
