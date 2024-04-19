@@ -92,7 +92,8 @@
   }
 
   function copySlug() {
-    var slug = document.getElementById("outputText").textContent;
+  var slug = document.getElementById("outputText").textContent;
+  if (slug.trim() !== "") {
     navigator.clipboard.writeText(slug);
     document.getElementById('copiedText').style.display = 'block';
     animateText();
@@ -100,6 +101,7 @@
       document.getElementById('copiedText').style.display = 'none';
     }, 1500);
   }
+}
 
   function handleKeyDown(event) {
     if (event.keyCode === 13) {
