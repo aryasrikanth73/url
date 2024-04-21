@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slug Converter Tool</title>
+  <title>Responsive Heading with Search Bar</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <!-- Font Awesome CSS -->
@@ -92,8 +92,7 @@
   }
 
   function copySlug() {
-  var slug = document.getElementById("outputText").textContent;
-  if (slug.trim() !== "") {
+    var slug = document.getElementById("outputText").textContent;
     navigator.clipboard.writeText(slug);
     document.getElementById('copiedText').style.display = 'block';
     animateText();
@@ -101,7 +100,6 @@
       document.getElementById('copiedText').style.display = 'none';
     }, 1500);
   }
-}
 
   function handleKeyDown(event) {
     if (event.keyCode === 13) {
@@ -112,9 +110,9 @@
   function animateText() {
     var copiedText = document.getElementById('copiedText');
     var pos = 10;
-    var id = setInterval(frame, 10);
+    var id = setInterval(frame, 0.1);
     function frame() {
-      if (pos == 600) {
+      if (pos == 200) {
         clearInterval(id);
       } else {
         pos++;
