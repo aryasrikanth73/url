@@ -76,7 +76,6 @@
       background-color: #ccc;
       transition: .4s;
       line-height: 30px;
-
     }
 
     .slider:before {
@@ -89,7 +88,6 @@
       background-color: white;
       transition: .4s;
       line-height: 5px;
-
     }
 
     input:checked + .slider {
@@ -112,6 +110,13 @@
     .slider.round:before {
       border-radius: 50%;
     }
+
+    .center-switch {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body oncontextmenu="return false">
@@ -129,10 +134,12 @@
         <div class="copied-text" id="copiedText">Copied!</div>
       </div>
     </div>
-    <label class="switch">
-      <input type="checkbox" id="removeDigitsToggle" onclick="transformText()">
-      <span class="slider round"> <b>Remove Digits</b> </span>
-    </label>
+    <div class="center-switch">
+      <label class="switch">
+        <input type="checkbox" id="removeDigitsToggle" onclick="transformText()">
+        <span class="slider round"> <b>Remove Digits</b> </span>
+      </label>
+    </div>
   </div>
 </div>
 
@@ -197,7 +204,7 @@
         pos++;
         copiedText.style.bottom = pos + 'px';
       }
-    }   
+    }
   }
 
   document.onkeydown = function(e) {
